@@ -2,6 +2,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "evaluate.h"
+#include "print.h"
 #include <stdio.h>
 
 int main(int argc, char **argv)
@@ -25,8 +26,9 @@ int main(int argc, char **argv)
 		}
 		else
 		{
+			print(tree);
 			n = evaluate(tree);
-			printf("%f\n", n);
+			printf("\n%f\n", n);
 		}
 	}
 	return (0);

@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "print.h"
 
 t_tree	*factory(t_token *t)
 {
@@ -30,6 +31,7 @@ int	parse_expression(char **str, t_tree **left_tree)
 				|| (tok->type == operation && tok->value.o == minus))
 		{
 			next_token(str);
+			right_tree = 0;
 			if (!parse_term(str, &right_tree))
 				return (0);
 			new_node = factory(tok);
@@ -64,7 +66,7 @@ int	parse_term(char **str, t_tree **left_tree)
 		{
 			next_token(str);
 			right_tree = 0;
-			if (!parse_term(str, &right_tree))
+			if (!parse_factor(str, &right_tree))
 				return (0);
 			new_node = factory(tok);
 			new_node->left = *left_tree;
@@ -97,20 +99,13 @@ int	parse_factor(char **str, t_tree **tree)
 		if (!parse_expression(str, &tmp_tree))
 			return (0);
 		*tree = tmp_tree;
-		tok = lexer(str);
+		tok = scan_token(*str);
 		if (!tok || !(tok->type == parenthesis && tok->value.p == close))
 		{
 			printf("expected ')'\n");
 			return (0);
 		}
-		/*
-		tok = lexer(str);
-		if (tok)
-		{
-			printf("expected end of factor\n");
-			return (0);
-		}
-		*/
+		next_token(str);
 	}
 	else if (tok->type == operation && tok->value.o == negate)
 	{
@@ -121,14 +116,6 @@ int	parse_factor(char **str, t_tree **tree)
 		new_node = factory(tok);
 		new_node->left = tmp_tree;
 		*tree = new_node;
-		/*
-		tok = lexer(str);
-		if (tok)
-		{
-			printf("expected end of factor\n");
-			return (0);
-		}
-		*/
 	}
 	else if (tok->type == value)
 	{
