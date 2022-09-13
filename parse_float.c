@@ -1,47 +1,45 @@
-//#include <stdio.h>
+#include "parse_float.h"
 
-float	parse_float(char *str)
+t_value	parse_float(char **str)
 {
-	float	n;
-	float	sign;
-	float	weight;
+	t_value	n;
+	t_value	sign;
+	t_value	weight;
 
 	n = 0;
 	sign = 1;
-	if (*str == '-')
+	if (**str == '-')
 	{
 		sign = -1;
-		str++;
+		(*str)++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (isdigit(**str))
 	{
-		n *= 10;
-		n += *str - '0';
-		str++;		
+		n = (n * 10) + (**str - '0');
+		(*str)++;		
 	}
-	if (*str == '.')
+	if (**str == '.')
 	{
 		weight = 1;
-		str++;
-		while (*str >= '0' && *str <= '9')
+		(*str)++;
+		while (isdigit(**str))
 		{
 			weight *= 10;
-			n += (*str - '0') * (1 / weight);
-			str++;
+			n += (**str - '0') * (1 / weight);
+			(*str)++;
 		}
 	}
-	if (sign == -1)
-		n *= -1;
-	return (n);
+	return (n * sign);
 }
 
 /*
+#include <stdio.h>
 int main(int argc, char **argv)
 {
 	char	*s;
 
 	s = argv[1];
-	printf("%f\n", parse_float(s));
+	printf("%f\n", parse_float(&s));
 	return (0);
 }
 */

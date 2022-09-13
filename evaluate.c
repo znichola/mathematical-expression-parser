@@ -2,33 +2,18 @@
 
 t_value	evaluate(t_tree *tree)
 {
-	t_token	*tok;
+	t_token		*tok;
 
 	tok = tree->tok;
-	switch(tok->type)
+	if(tok->type == operation)
 	{
-		case operation:
-			switch(tok->value.o)
-			{
-				case plus:
-					return (evaluate(tree->left)
-							+ evaluate(tree->right));
-				case minus:
-					return (evaluate(tree->left)
-							- evaluate(tree->right));
-				case multiply:
-					return (evaluate(tree->left)
-							* evaluate(tree->right));
-				case divide:
-					return (evaluate(tree->left)
-							/ evaluate(tree->right));
-				case negate:
-					return ((-1) * evaluate(tree->left));
-			}
-		case value:
-			return (tok->value.v);
-		default:
-			printf("parse error: unexpected token\n");
-			return (-1);
+		if (tok->value.o.name == n_negate)
+			return -1 * evaluate(tree->left);
+		else
+			return tok->value.o.function(evaluate(tree->left), evaluate(tree->right));
+	}
+	else // tok->type supposed to be VALUE
+	{
+		return (tok->value.v);
 	}
 }

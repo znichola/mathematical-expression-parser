@@ -3,31 +3,41 @@
 
 typedef enum e_token_type
 {
-	parenthesis,
+	open,
+	close,
 	operation,
 	value
 } t_token_type;
 
-typedef enum e_parenthesis
+typedef enum e_category
 {
-	open,
-	close
-} t_parenthesis;
+	additive,
+	multiplicative,
+	other
+} t_category;
 
-typedef enum e_operation
+typedef enum e_name
 {
-	plus,
-	minus,
-	multiply,
-	divide,
-	negate
+	n_plus,
+	n_minus,
+	n_multiply,
+	n_divide,
+	n_negate
+} t_name;
+
+typedef double t_value;
+
+typedef t_value (*t_function) (t_value, t_value);
+
+typedef struct s_operation
+{
+	t_category	category;
+	t_name		name;
+ 	t_function	function;
 } t_operation;
-
-typedef float t_value;
 
 typedef union u_token_value
 {
-	t_parenthesis	p;
 	t_operation	o;
 	t_value		v;	
 } t_token_value;

@@ -1,95 +1,104 @@
 #include "lexer.h"
 
-t_token *scan_token(char *str)
+t_value f_plus(t_value x, t_value y)
 {
-	return	(lexer(&str));
+	return x + y;
 }
 
-void	next_token(char **str)
+t_value f_minus(t_value x, t_value y)
 {
-	t_token	*tok;
+	return x - y;
+}
+
+t_value f_multiply(t_value x, t_value y)
+{
+	return x * y;
+}
+
+t_value f_divide(t_value x, t_value y)
+{
+	return x / y;
+}
+t_value f_negate(t_value x, t_value y)
+{
+	(void)y;
+	return -x;
+}
+
+t_token *scan_token(char *str)
+{
+	return (lexer(&str));
+}
+
+void next_token(char **str)
+{
+	t_token *tok;
 
 	tok = lexer(str);
 	free(tok);
 }
 
-t_token	*lexer(char **str)
+t_token *lexer(char **str)
 {
-	t_token	*tok;
+	t_token *tok;
 
-	tok = malloc(sizeof(t_token));
 	while (isspace(**str))
+	{
 		(*str)++;
+	}
 	if (**str == '\0')
 	{
-		free(tok);
 		return (0);
 	}
-	if (**str == '(')
+	else
 	{
-		tok->type = parenthesis;
-		tok->value.p = open;
-	}
-	else if (**str == ')')
-	{
-		tok->type = parenthesis;
-		tok->value.p = close;
-	}
-	else if (**str == '-' && !isspace(*(*str + 1)))
-	{
-		tok->type = operation;
-		tok->value.o = negate;
-	}
-	else if (**str == '+')
-	{
-		tok->type = operation;
-		tok->value.o = plus;
-	}
-	else if (**str == '-')
-	{
-		tok->type = operation;
-		tok->value.o = minus;
-	}
-	else if (**str == '*')
-	{
-		tok->type = operation;
-		tok->value.o = multiply;
-	}
-	else if (**str == '/')
-	{
-		tok->type = operation;
-		tok->value.o = divide;
-	}
-	if (isdigit(**str))
-	{
-		tok->type = value;
-		tok->value.v = parse_float(*str);
-		while (isdigit(**str))
+		tok = malloc(sizeof(t_token));
+		if (isdigit(**str))
+		{
+			tok->type = value;
+			tok->value.v = parse_float(str);
+			return (tok);
+		}
+		else
+		{
+			if (**str == '(')
+			{
+				tok->type = open;
+			}
+			else if (**str == ')')
+			{
+				tok->type = close;
+			}
+			else
+			{
+				tok->type = operation;
+				if (**str == '+')
+				{
+					tok->value.o.category	= additive;
+					tok->value.o.name		= n_plus;
+					tok->value.o.function	= f_plus;
+				}
+				else if (**str == '-')
+				{
+					tok->value.o.category	= additive;
+					tok->value.o.name		= n_minus;
+					tok->value.o.function	= f_minus;
+				}
+				else if (**str == '*')
+				{
+					tok->value.o.category	= multiplicative;
+					tok->value.o.name		= n_multiply;
+					tok->value.o.function	= f_multiply;
+				}
+				else if (**str == '/')
+				{
+					tok->value.o.category	= multiplicative;
+					tok->value.o.name		= n_divide;
+					tok->value.o.function	= f_divide;
+				}
+			}
 			(*str)++;
-		if (**str == '.')
-			(*str)++;
-		while (isdigit(**str))
-			(*str)++;
-		return (tok);
+			return (tok);
+		}
 	}
-	(*str)++;
-	return (tok);
 }
-
-/*
-int main(int argc, char **argv)
-{
-	char *str = argv[1];
-
-	t_token	*tok;
-
-	tok = lexer(&str);
-	while (tok)
-	{
-		if (tok->type == value)
-			printf("%f\n", tok->value.v);
-		tok = lexer(&str);
-	}
-	return (0);
-}
-*/

@@ -20,13 +20,16 @@ int main(int argc, char **argv)
 		tree = 0;
 		parse_expression(&argv[1], &tree);
 		tok = scan_token(argv[1]);
+		print(tree);
+		printf("\n");
 		if (tok)
 		{
+			printf("%d %s\n", tok->type, argv[1]);
 			printf("parse error\n");
 		}
 		else
 		{
-			print(tree);
+			
 			n = evaluate(tree);
 			printf("\n%f\n", n);
 		}

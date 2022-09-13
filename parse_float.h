@@ -1,6 +1,9 @@
 #ifndef PARSE_FLOAT_H
  #define PARSE_FLOAT_H
+ 
+ #include <ctype.h>
+ #include "token.h"
 
-float	parse_float(char *str);
+t_value parse_float(char **str);
 
 #endif

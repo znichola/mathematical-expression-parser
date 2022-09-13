@@ -8,7 +8,7 @@ void	print(t_tree *tree)
 	switch(tok->type)
 	{
 		case operation:
-			if (tok->value.o == negate)
+			if (tok->value.o.name == n_negate)
 			{
 				printf("-(");
 				print(tree->left);
@@ -19,18 +19,18 @@ void	print(t_tree *tree)
 				printf("(");
 				print(tree->left);
 				printf(")");
-				switch (tok->value.o)
+				switch (tok->value.o.name)
 				{
-					case plus:
+					case n_plus:
 						printf("+");
 						break ;
-					case minus:
+					case n_minus:
 						printf("-");
 						break ;
-					case multiply:
+					case n_multiply:
 						printf("*");
 						break ;
-					case divide:
+					case n_divide:
 						printf("/");
 						break ;
 				}
@@ -40,7 +40,7 @@ void	print(t_tree *tree)
 			}
 			break ;
 		case value:
-			printf("%f", tok->value.v);
+			printf("%g", tok->value.v);
 			break ;
 	}
 }

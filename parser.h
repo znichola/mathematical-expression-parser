@@ -7,17 +7,19 @@
 
 typedef struct s_tree
 {
-	t_token		*tok;
+	t_token			*tok;
 	struct s_tree	*left;
 	struct s_tree	*right;
 } t_tree;
 
 t_tree	*factory(t_token *t);
 
-int	parse_expression(char **str, t_tree **left_tree);
+t_tree	*create_node(t_token *new_token, t_tree *left, t_tree *right);
 
-int	parse_term(char **str, t_tree **left_tree);
+void	parse_expression(char **str, t_tree **left_tree);
 
-int	parse_factor(char **str, t_tree **tree);
+void	parse_term(char **str, t_tree **left_tree);
+
+void	parse_factor(char **str, t_tree **tree);
 
 #endif
