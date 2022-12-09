@@ -1,4 +1,4 @@
-#include "parse_float.h"
+#include "eval.h"
 
 t_value	parse_float(char **str)
 {
@@ -32,14 +32,3 @@ t_value	parse_float(char **str)
 	return (n * sign);
 }
 
-/*
-#include <stdio.h>
-int main(int argc, char **argv)
-{
-	char	*s;
-
-	s = argv[1];
-	printf("%f\n", parse_float(&s));
-	return (0);
-}
-*/

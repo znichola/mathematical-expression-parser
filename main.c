@@ -1,9 +1,4 @@
-#include "token.h"
-#include "lexer.h"
-#include "parser.h"
-#include "evaluate.h"
-#include "print.h"
-#include <stdio.h>
+#include "eval.h"
 
 int main(int argc, char **argv)
 {
