@@ -13,12 +13,12 @@ int main(int argc, char **argv)
 	else
 	{
 		tree = 0;
+		printf("expression: %s", argv[1]);
 		parse_expression(&argv[1], &tree);
 		tok = scan_token(argv[1]);
-
 		print_tree((t_pos){40, 2}, tree);
 		printf("\033[20;0H");
-		return (0);
+		// return (0);
 		// print(tree);
 		printf("\n");
 		if (tok)

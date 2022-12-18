@@ -5,6 +5,8 @@
 # include <stdlib.h>
 # include <ctype.h>
 
+// # include <unistd.h>
+
 typedef struct s_pos
 {
 	int	x;
