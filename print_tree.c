@@ -85,6 +85,8 @@ int	branch_size(char dir, int *count, t_tree *tree)
 	}
 }
 
+// TODO this does not always correctly acess the size of the tree.
+// so there is overlap on some expressions.
 int	tree_size(t_tree *tree)
 {
 	int	left;
