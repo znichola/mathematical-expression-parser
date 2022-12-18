@@ -70,6 +70,16 @@ void	print_token(t_token *tok)
 	printf("%.1s", dict_type(tok));
 }
 
+void print_connector(char dir, int depth)
+{
+	;
+}
+
+int	tree_size(int *cout, t_tree tree)
+{
+	
+}
+
 void	print_tree(t_pos p, t_tree *tree)
 {
 	t_token *tok;
@@ -77,40 +87,24 @@ void	print_tree(t_pos p, t_tree *tree)
 	tok = tree->tok;
 	if (tok->type == operation)
 	{
-		printf("\n");
-		printf("(%d, %d)", p.x, p.y);
-		// printf("\033[%d;%dH", p.x, p.y);
-		// printf("\033[%dC", p.x);
-		printf("\033[%dG", p.x);
-		// printf("\033[%dA", p.y);
+		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
-		printf("\n");
+		printf("\033[%d;0H", p.y);
+		printf("(%d, %d) depth:%d", p.x, p.y, 2);
 		if (tree->left != NULL)
 		{
-			// printf("\033[%dA", p.y + 1);
-			printf("\033[%dG/", p.x-1);
-			// printf("/\n");
+			printf("\033[%d;%dH/", p.y+1, p.x-1);
 			print_tree((t_pos){p.x - 2, p.y + 2}, tree->left);
 		}
 		if (tree->right != NULL)
 		{
-			// printf(" R");
-			// printf("\033[%dA", p.y + 1);
-			printf("\033[%dG\\", p.x+1);
-			// printf("\\\n");
+			printf("\033[%d;%dH\\", p.y+1, p.x+1);
 			print_tree((t_pos){p.x + 2, p.y + 2}, tree->right);
 		}
 	}
 	else if (tok->type == value)
 	{
-		// printf(" ->");
-		// printf("(%d, %d) ", p.x, p.y);
-		// printf("\033[%dC", p.x);
-		printf("\n");
-		// printf("(%d, %d)", p.x, p.y);
-		printf("\033[%dG", p.x);
+		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
-		printf("\n");
-		printf("\033[%dA", 2);
 	}
 }

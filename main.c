@@ -16,12 +16,8 @@ int main(int argc, char **argv)
 		parse_expression(&argv[1], &tree);
 		tok = scan_token(argv[1]);
 
-		// printf("\033[20G");
-		// printf("columb 20 is! here\n");
-		// return (0);
-
-		print_tree((t_pos){20, 0}, tree);
-		printf("\n\n");
+		print_tree((t_pos){40, 2}, tree);
+		printf("\033[20;0H");
 		return (0);
 		// print(tree);
 		printf("\n");
