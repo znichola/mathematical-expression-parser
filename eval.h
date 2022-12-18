@@ -5,6 +5,12 @@
 # include <stdlib.h>
 # include <ctype.h>
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
 typedef enum e_token_type
 {
 	open,
@@ -80,6 +86,7 @@ void	parse_factor(char **str, t_tree **tree);
 //print.c
 void	print(t_tree *tree);
 
-
+// print_tree.c
+void	print_tree(t_pos p, t_tree *tree);
 
 #endif

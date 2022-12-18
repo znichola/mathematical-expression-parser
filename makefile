@@ -10,7 +10,8 @@ evaluate.c \
 lexer.c \
 parse_float.c \
 parser.c \
-print.c
+print.c \
+print_tree.c
 
 NAME = eval
 
