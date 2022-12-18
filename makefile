@@ -1,9 +1,9 @@
 CC=gcc
-CFLAGS= -Wall -Wextra
+# CFLAGS= -Wall -Wextra -Werror
 
-ifdef DEBUG
-	$(CFLAGS) += -fsanitize=address
-endif
+# ifdef DEBUG
+CFLAGS = -fsanitize=address -g3
+# endif
 
 SRCS = main.c \
 evaluate.c \
