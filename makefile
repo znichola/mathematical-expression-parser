@@ -11,7 +11,8 @@ lexer.c \
 parse_float.c \
 parser.c \
 print.c \
-print_tree.c
+print_tree.c \
+tree_ops.c
 
 NAME = eval
 

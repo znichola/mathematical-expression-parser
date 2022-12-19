@@ -91,4 +91,9 @@ void	print(t_tree *tree);
 // print_tree.c
 void	print_tree(t_pos p, t_tree *tree);
 
+// tree_ops.c
+int		get_tree_width(t_tree *tree, int level);
+int		get_tree_height(t_tree *tree);
+int		get_tree_max_width(t_tree *tree);
+
 #endif

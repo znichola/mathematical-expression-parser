@@ -83,6 +83,7 @@ static int	branch_size(char dir, int *count, t_tree *tree)
 		*count += 1;
 		branch_size(dir, count, tree->right);
 	}
+	return (-1);
 }
 
 // TODO this does not always correctly acess the size of the tree.
@@ -132,17 +133,15 @@ void	print_tree(t_pos p, t_tree *tree)
 		print_token(tok);
 
 		printf("\033[%d;0H", p.y);
-		size = tree_size(tree) + 1;
-		// printf("s:%d", size);
+		size = get_tree_max_width(tree);
+		printf("s:%d", get_tree_max_width(tree));
 		if (tree->left != NULL)
 		{
-			// printf("\033[%d;%dH/", p.y+1, p.x-1);
 			print_connector(p, 'l', size);
 			print_tree((t_pos){p.x - size, p.y + size}, tree->left);
 		}
 		if (tree->right != NULL)
 		{
-			// printf("\033[%d;%dH\\", p.y+1, p.x+1);
 			print_connector(p, 'r', size);
 			print_tree((t_pos){p.x + size, p.y + size}, tree->right);
 		}
@@ -151,6 +150,5 @@ void	print_tree(t_pos p, t_tree *tree)
 	{
 		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
-		// sleep(1);
 	}
 }
