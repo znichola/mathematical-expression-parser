@@ -122,3 +122,17 @@ void	print_tree(t_pos p, t_tree *tree)
 		print_token(tok);
 	}
 }
+
+// wrapper for the print tree that 
+// calculates very roughly the space it needs
+void	auto_print_tree(t_tree *tree)
+{
+	int	width;
+	int	height;
+
+	width = get_tree_max_width(tree) * 6;
+	height = get_tree_height(tree) * 4;
+	print_tree((t_pos){width, 2}, tree);
+	printf("\033[%d;0H", height);
+	printf("\n");
+}
