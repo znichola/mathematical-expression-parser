@@ -70,36 +70,6 @@ static void	print_token(t_token *tok)
 	printf("%.1s", dict_type(tok));
 }
 
-
-static int	branch_size(char dir, int *count, t_tree *tree)
-{
-	if (dir == 'l' && tree->left != NULL)
-	{
-		*count += 1;
-		branch_size(dir, count, tree->left);
-	}
-	else if (dir == 'r' && tree->right != NULL)
-	{
-		*count += 1;
-		branch_size(dir, count, tree->right);
-	}
-	return (-1);
-}
-
-// TODO this does not always correctly acess the size of the tree.
-// so there is overlap on some expressions.
-static int	tree_size(t_tree *tree)
-{
-	int	left;
-	int	right;
-
-	left = 0;
-	branch_size('l', &left, tree);
-	right = 0;
-	branch_size('r', &right, tree);
-	return (left > right ? left : right);
-}
-
 static void print_connector(t_pos p, char dir, int depth)
 {
 	if (dir == 'l')
