@@ -104,7 +104,7 @@ void	print_tree(t_pos p, t_tree *tree)
 
 		printf("\033[%d;0H", p.y);
 		size = get_tree_max_width(tree);
-		printf("s:%d", get_tree_max_width(tree));
+		// printf("s:%d", get_tree_max_width(tree));
 		if (tree->left != NULL)
 		{
 			print_connector(p, 'l', size);
