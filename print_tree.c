@@ -1,6 +1,6 @@
 #include "eval.h"
 
-const char	*dict_type(t_token *tok)
+static const char	*dict_type(t_token *tok)
 {
 	static const char	*ret[4];
 	int					index;
@@ -13,7 +13,7 @@ const char	*dict_type(t_token *tok)
 	return (ret[index]);
 }
 
-const char	*dict_category(t_token *tok)
+static const char	*dict_category(t_token *tok)
 {
 	static const char	*ret[3];
 	int					index;
@@ -25,7 +25,7 @@ const char	*dict_category(t_token *tok)
 	return (ret[index]);
 }
 
-const char	*dict_name(t_token *tok)
+static const char	*dict_name(t_token *tok)
 {
 	static const char	*ret[5];
 	int					index;
@@ -39,7 +39,7 @@ const char	*dict_name(t_token *tok)
 	return (ret[index]);
 }
 
-const char	*dict_sign(t_token *tok)
+static const char	*dict_sign(t_token *tok)
 {
 	static const char	*ret[5];
 	int					index;
@@ -53,7 +53,7 @@ const char	*dict_sign(t_token *tok)
 	return (ret[index]);
 }
 
-void	print_token(t_token *tok)
+static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
 	if (tok->type == value)
@@ -71,7 +71,7 @@ void	print_token(t_token *tok)
 }
 
 
-int	branch_size(char dir, int *count, t_tree *tree)
+static int	branch_size(char dir, int *count, t_tree *tree)
 {
 	if (dir == 'l' && tree->left != NULL)
 	{
@@ -87,7 +87,7 @@ int	branch_size(char dir, int *count, t_tree *tree)
 
 // TODO this does not always correctly acess the size of the tree.
 // so there is overlap on some expressions.
-int	tree_size(t_tree *tree)
+static int	tree_size(t_tree *tree)
 {
 	int	left;
 	int	right;
@@ -99,7 +99,7 @@ int	tree_size(t_tree *tree)
 	return (left > right ? left : right);
 }
 
-void print_connector(t_pos p, char dir, int depth)
+static void print_connector(t_pos p, char dir, int depth)
 {
 	if (dir == 'l')
 	{
