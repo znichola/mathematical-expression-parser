@@ -56,18 +56,19 @@ static const char	*dict_sign(t_token *tok)
 static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
+	printf("\033[1D");
 	if (tok->type == value)
 	{
 		// printf(":%.1g", tok->value.v);
-		printf("%.1g", tok->value.v);
+		printf("%2.3g", tok->value.v);
 		return ;
 	}
 	if (tok->type == operation)
 	{
-		printf("%.1s", dict_sign(tok));
+		printf("%2.2s", dict_sign(tok));
 		return ;
 	}
-	printf("%.1s", dict_type(tok));
+	printf("%2.3s", dict_type(tok));
 }
 
 static void print_connector(t_pos p, char dir, int depth)
