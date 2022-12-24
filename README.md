@@ -9,6 +9,13 @@ Examples of valid expressions are:
 - `-(24 + 3 * 4.1)`
 - `2 / 7 / 8`
 
+## usage
+
+`./eval <expr>` prints the result of the expression
+`./eval -p <expr>` prints the corresponding abstract syntax tree
+
+## about parsing mathematical expressions
+
 The algorithm for the parsing I used is called "recursive descent parsing".
 Here is a link to the video which helped me understand how to go about this: [Recursive Descent Parsing - hhp3](https://www.youtube.com/watch?v=SToUyjAsaFk&t=271s).
 

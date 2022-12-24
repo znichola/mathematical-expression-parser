@@ -4,8 +4,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <ctype.h>
+# include <string.h>
 
-// # include <unistd.h>
+# define COMPUTE 0
+# define PRINT_TREE 1
 
 typedef struct s_pos
 {
@@ -66,6 +68,8 @@ typedef struct s_tree
 	struct s_tree	*left;
 	struct s_tree	*right;
 } t_tree;
+
+int	parse_args(int argc, char **argv, char **expr, int *action);
 
 //evaluate.c
 t_value	evaluate(t_tree *tree);
