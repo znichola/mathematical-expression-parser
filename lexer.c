@@ -53,6 +53,11 @@ t_token *lexer(char **str)
 	else
 	{
 		tok = malloc(sizeof(t_token));
+        if (!tok)
+        {
+            printf("Panic: failed to allocate memory\n");
+            exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
+        }
 		if (isdigit(**str))
 		{
 			tok->type = value;
@@ -71,6 +76,12 @@ t_token *lexer(char **str)
 			}
 			else
 			{
+                // Check for invalid tokens :)
+                if (**str != '+' && **str != '-' && **str != '*' && **str != '/')
+                {
+                    tok->type = invalid;
+                    return tok;
+                }
 				tok->type = operation;
 				tok->value.c = **str;
 			}

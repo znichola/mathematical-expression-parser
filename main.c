@@ -13,6 +13,11 @@ int main(int argc, char **argv)
 	}
 	tree = 0;
 	parse_expression(&argv[1], &tree);
+    if (tree == NULL)
+    {
+        printf("Error while parsing tree\n");
+        return 1;
+    }
 	if (action == COMPUTE)
 	{
 		n = evaluate(tree);

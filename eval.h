@@ -20,7 +20,8 @@ typedef enum e_token_type
 	open,
 	close,
 	operation,
-	value
+	value,
+	invalid
 } t_token_type;
 
 typedef double t_value;
@@ -67,7 +68,7 @@ t_tree	*factory(t_token *t);
 t_tree	*create_node(t_token *new_token, t_tree *left, t_tree *right);
 void	parse_expression(char **str, t_tree **left_tree);
 void	parse_term(char **str, t_tree **left_tree);
-void	parse_factor(char **str, t_tree **tree);
+int		parse_factor(char **str, t_tree **tree);
 
 //print.c
 void	print(t_tree *tree);

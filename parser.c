@@ -46,7 +46,8 @@ void	parse_term(char **str, t_tree **left_tree)
 	t_token	*tok;
 	t_tree	*right_tree;
 
-	parse_factor(str, left_tree);
+	if (parse_factor(str, left_tree) == -1)
+        exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
 	while (1)
 	{
 		tok = scan_token(*str);
@@ -55,30 +56,43 @@ void	parse_term(char **str, t_tree **left_tree)
 		else
 		{
 			next_token(str);
-			parse_factor(str, &right_tree);
+			if (parse_factor(str, &right_tree) == -1)
+                exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
 			*left_tree = create_node(tok, *left_tree, right_tree);
 		}
 	}
 }
 
-void	parse_factor(char **str, t_tree **tree)
+int parse_factor(char **str, t_tree **tree)
 {
-	t_token *tok;
+    t_token *tok;
 
-	tok = scan_token(*str);
-	next_token(str);
-	if (tok->type == open)
-	{
-		parse_expression(str, tree);
-		next_token(str); //supposed to correspond to token CLOSE
-	}
-	else if (tok->type == operation && tok->value.c == '-')
-	{
-		parse_factor(str, tree);
-		*tree = create_node(tok, *tree, 0);
-	}
-	else if (tok->type == value)
-	{
-		*tree = factory(tok);
-	}
+    tok = scan_token(*str);
+    if (!tok) // check if scan_token returned a valid token
+        return -1;
+    next_token(str);
+    if (tok->type == open)
+    {
+        parse_expression(str, tree);
+        // Check if the next token is a close parenthesis
+        tok = scan_token(*str);
+        if (tok && tok->type == close)
+            next_token(str);
+        else
+        {
+            printf("Invalid expression: open parenthesis\n");
+            return -1;
+        }
+    }
+    else if (tok->type == operation && tok->value.c == '-')
+    {
+        if (parse_factor(str, tree) == -1)
+            return -1;
+        *tree = create_node(tok, *tree, 0);
+    }
+    else if (tok->type == value)
+    {
+        *tree = factory(tok);
+    }
+    return 0;
 }
