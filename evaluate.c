@@ -7,10 +7,19 @@ t_value	evaluate(t_tree *tree)
 	tok = tree->tok;
 	if(tok->type == operation)
 	{
-		if (tok->value.o.name == n_negate)
-			return -1 * evaluate(tree->left);
-		else
-			return tok->value.o.function(evaluate(tree->left), evaluate(tree->right));
+		switch(tok->value.c)
+		{
+			case '+':
+				return (evaluate(tree->left) + evaluate(tree->right));
+			case '*':
+				return (evaluate(tree->left) * evaluate(tree->right));
+			case '/':
+				return (evaluate(tree->left) / evaluate(tree->right));
+			default:
+				if (!tree->right)
+					return -1 * evaluate(tree->left);
+				return evaluate(tree->left) - evaluate(tree->right);
+		}
 	}
 	else // tok->type supposed to be VALUE
 	{

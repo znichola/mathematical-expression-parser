@@ -72,30 +72,7 @@ t_token *lexer(char **str)
 			else
 			{
 				tok->type = operation;
-				if (**str == '+')
-				{
-					tok->value.o.category	= additive;
-					tok->value.o.name		= n_plus;
-					tok->value.o.function	= f_plus;
-				}
-				else if (**str == '-')
-				{
-					tok->value.o.category	= additive;
-					tok->value.o.name		= n_minus;
-					tok->value.o.function	= f_minus;
-				}
-				else if (**str == '*')
-				{
-					tok->value.o.category	= multiplicative;
-					tok->value.o.name		= n_multiply;
-					tok->value.o.function	= f_multiply;
-				}
-				else if (**str == '/')
-				{
-					tok->value.o.category	= multiplicative;
-					tok->value.o.name		= n_divide;
-					tok->value.o.function	= f_divide;
-				}
+				tok->value.c = **str;
 			}
 			(*str)++;
 			return (tok);

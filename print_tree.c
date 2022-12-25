@@ -1,5 +1,6 @@
 #include "eval.h"
 
+/*
 static const char	*dict_type(t_token *tok)
 {
 	static const char	*ret[4];
@@ -53,6 +54,8 @@ static const char	*dict_sign(t_token *tok)
 	return (ret[index]);
 }
 
+*/
+
 static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
@@ -65,10 +68,10 @@ static void	print_token(t_token *tok)
 	}
 	if (tok->type == operation)
 	{
-		printf("%2.2s", dict_sign(tok));
+		printf("%c", tok->value.c);
 		return ;
 	}
-	printf("%2.3s", dict_type(tok));
+	//printf("%2.3s", dict_type(tok));
 }
 
 static void print_connector(t_pos p, char dir, int depth)

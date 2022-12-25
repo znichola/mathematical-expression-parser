@@ -30,7 +30,7 @@ void	parse_expression(char **str, t_tree **left_tree)
 	while (1)
 	{
 		tok = scan_token(*str);
-		if (!tok || !(tok->type == operation && tok->value.o.category == additive))
+		if (!tok || !(tok->type == operation && (tok->value.c == '+' || tok->value.c == '-')))
 			return ;
 		else
 		{
@@ -50,7 +50,7 @@ void	parse_term(char **str, t_tree **left_tree)
 	while (1)
 	{
 		tok = scan_token(*str);
-		if (!tok || !(tok->type == operation && tok->value.o.category == multiplicative))
+		if (!tok || !(tok->type == operation && (tok->value.c == '*' || tok->value.c == '/')))
 			return ;
 		else
 		{
@@ -72,9 +72,8 @@ void	parse_factor(char **str, t_tree **tree)
 		parse_expression(str, tree);
 		next_token(str); //supposed to correspond to token CLOSE
 	}
-	else if (tok->type == operation && tok->value.o.name == n_minus)
+	else if (tok->type == operation && tok->value.c == '-')
 	{
-		tok->value.o.name = n_negate;
 		parse_factor(str, tree);
 		*tree = create_node(tok, *tree, 0);
 	}
@@ -83,16 +82,3 @@ void	parse_factor(char **str, t_tree **tree)
 		*tree = factory(tok);
 	}
 }
-
-/*
-int main(int argc, char **argv)
-{
-	t_tree	*tree;
-	char	*str;
-
-	tree = 0;
-	str = argv[1];
-	parse_expression(&str, &tree);
-	return (0);
-}
-*/
