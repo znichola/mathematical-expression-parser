@@ -71,6 +71,8 @@ typedef struct s_tree
 
 int	parse_args(int argc, char **argv, char **expr, int *action);
 
+void	cleanup_tree(t_tree *tree);
+
 //evaluate.c
 t_value	evaluate(t_tree *tree);
 

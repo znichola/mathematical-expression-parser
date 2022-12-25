@@ -20,7 +20,9 @@ int main(int argc, char **argv)
 	}
 	else
 	{
+		//printf("\n");
 		auto_print_tree(tree);
 	}
+	cleanup_tree(tree);
 	return (0);
 }

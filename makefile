@@ -2,7 +2,11 @@ CC=gcc
 CFLAGS= -Wall -Wextra
 
 ifdef DEBUG
-	CFLAGS = -fsanitize=address -g3
+	CFLAGS += -g3
+endif
+
+ifdef FSAN
+	CFLAGS += -fsanitize=address
 endif
 
 SRCS = main.c \
@@ -13,7 +17,8 @@ parser.c \
 print.c \
 print_tree.c \
 tree_ops.c \
-args.c
+args.c \
+cleanup.c
 
 NAME = eval
 
