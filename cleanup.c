@@ -2,6 +2,8 @@
 
 void	cleanup_tree(t_tree *tree)
 {
+	if (!tree)
+		return ;
 	if (tree->right)
 	{
 		cleanup_tree(tree->right);
@@ -12,4 +14,3 @@ void	cleanup_tree(t_tree *tree)
 	}
 	free(tree->tok);
 }
-

@@ -35,7 +35,7 @@ typedef union u_token_value
 typedef struct s_token
 {
 	t_token_type	type;
-	t_token_value	value;	
+	t_token_value	value;
 }  t_token;
 
 typedef struct s_tree
@@ -66,8 +66,8 @@ t_value parse_float(char **str);
 //parser.c
 t_tree	*factory(t_token *t);
 t_tree	*create_node(t_token *new_token, t_tree *left, t_tree *right);
-void	parse_expression(char **str, t_tree **left_tree);
-void	parse_term(char **str, t_tree **left_tree);
+int		parse_expression(char **str, t_tree **left_tree);
+int		parse_term(char **str, t_tree **left_tree);
 int		parse_factor(char **str, t_tree **tree);
 
 //print.c
