@@ -1,8 +1,8 @@
 CC=gcc
 CFLAGS= -Wall -Wextra
 
-#DEBUG=1
-#FSAN=1
+DEBUG=1
+FSAN=1
 
 ifdef DEBUG
 	CFLAGS += -g3

@@ -108,7 +108,10 @@ int parse_factor(char **str, t_tree **tree)
 		// Check if the next token is a close parenthesis
 		tok = scan_token(*str);
 		if (tok && tok->type == close)
+		{
+			free(tok);
 			next_token(str);
+		}
 		else
 		{
 			printf("Parse error: expecting closing parenthesis\n");
