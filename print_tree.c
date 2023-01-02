@@ -59,7 +59,7 @@ static const char	*dict_sign(t_token *tok)
 static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
-	// printf("\033[1D");
+	printf("\033[1D");
 	if (tok->type == value)
 	{
 		// printf(":%.1g", tok->value.v);
@@ -103,11 +103,11 @@ void	print_tree(t_pos p, t_tree *tree)
 	size = 3;
 	if (tok->type == operation)
 	{
-		printf("\033[%d;%dH", p.y, p.x);
+		printf("\033[%d;%dH", p.y, p.x + 1);
 		print_token(tok);
 
-		printf("\033[%d;0H", p.y);
 		size = get_tree_max_width(tree);
+		// printf("\033[%d;0H", p.y);
 		// printf("s:%d", get_tree_max_width(tree));
 		if (tree->left != NULL)
 		{
@@ -122,7 +122,7 @@ void	print_tree(t_pos p, t_tree *tree)
 	}
 	else if (tok->type == value)
 	{
-		printf("\033[%d;%dH", p.y, p.x - 1);
+		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
 	}
 }
