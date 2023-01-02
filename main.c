@@ -14,9 +14,10 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	tree = 0;
-	if ((status = parse_expression(&argv[1], &tree)) != -1)
+	if ((status = parse_expression(&expr, &tree)) != -1)
+	// if ((status = parse_expression(&argv[1], &tree)) != -1)
 	{
-		tok = scan_token(argv[1]);
+		tok = scan_token(expr);
 		if (tree == NULL || tok)
 		{
 			printf("Error while parsing tree\n");
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
 		else if (action == COMPUTE)
 		{
 			n = evaluate(tree);
-			printf("%f\n", n);	
+			printf("%f\n", n);
 		}
 		else
 		{

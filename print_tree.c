@@ -127,7 +127,7 @@ void	print_tree(t_pos p, t_tree *tree)
 	}
 }
 
-// wrapper for the print tree that 
+// wrapper for the print tree that
 // calculates very roughly the space it needs
 void	auto_print_tree(t_tree *tree)
 {
@@ -137,6 +137,7 @@ void	auto_print_tree(t_tree *tree)
 	width = get_tree_max_width(tree) * 6;
 	height = get_tree_height(tree) * 4;
 	// printf("\033[%dT", height);
+	printf("\033[2J\033[1;1H");
 	print_tree((t_pos){width, 2}, tree);
 	printf("\033[%d;0H", height);
 	printf("\n");
