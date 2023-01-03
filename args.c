@@ -2,7 +2,6 @@
 
 static int	check_args(int argc, char **argv)
 {
-    // I think you mean 3 instead of 4 :D
 	if (argc < 2 || argc > 3)
 		return (-1);
 	if (argc == 3 && strcmp(argv[1], "-p") != 0)
