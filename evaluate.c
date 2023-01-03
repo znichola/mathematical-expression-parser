@@ -15,6 +15,8 @@ t_value	evaluate(t_tree *tree)
 				return (evaluate(tree->left) * evaluate(tree->right));
 			case '/':
 				return (evaluate(tree->left) / evaluate(tree->right));
+			case '^':
+				return (pow(evaluate(tree->left), evaluate(tree->right)));
 			default:
 				if (!tree->right)
 					return -1 * evaluate(tree->left);
