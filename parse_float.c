@@ -16,7 +16,7 @@ t_value	parse_float(char **str)
 	while (isdigit(**str))
 	{
 		n = (n * 10) + (**str - '0');
-		(*str)++;		
+		(*str)++;
 	}
 	if (**str == '.')
 	{
@@ -31,4 +31,3 @@ t_value	parse_float(char **str)
 	}
 	return (n * sign);
 }
-
