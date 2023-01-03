@@ -2,27 +2,27 @@
 
 t_value f_plus(t_value x, t_value y)
 {
-	return x + y;
+	return (x + y);
 }
 
 t_value f_minus(t_value x, t_value y)
 {
-	return x - y;
+	return (x - y);
 }
 
 t_value f_multiply(t_value x, t_value y)
 {
-	return x * y;
+	return (x * y);
 }
 
 t_value f_divide(t_value x, t_value y)
 {
-	return x / y;
+	return (x / y);
 }
 t_value f_negate(t_value x, t_value y)
 {
 	(void)y;
-	return -x;
+	return (-x);
 }
 
 t_token *scan_token(char *str)
@@ -53,11 +53,11 @@ t_token *lexer(char **str)
 	else
 	{
 		tok = malloc(sizeof(t_token));
-        if (!tok)
-        {
-            printf("Panic: failed to allocate memory\n");
-            exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
-        }
+		if (!tok)
+		{
+			printf("Panic: failed to allocate memory\n");
+			exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
+		}
 		if (isdigit(**str))
 		{
 			tok->type = value;
@@ -76,12 +76,12 @@ t_token *lexer(char **str)
 			}
 			else
 			{
-                // Check for invalid tokens :)
-                if (**str != '+' && **str != '-' && **str != '*' && **str != '/' && **str != '^')
-                {
-                    tok->type = invalid;
-                    return tok;
-                }
+				// Check for invalid tokens :)
+				if (**str != '+' && **str != '-' && **str != '*' && **str != '/' && **str != '^')
+				{
+					tok->type = invalid;
+					return (tok);
+				}
 				tok->type = operation;
 				tok->value.c = **str;
 			}

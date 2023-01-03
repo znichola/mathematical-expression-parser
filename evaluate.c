@@ -19,8 +19,8 @@ t_value	evaluate(t_tree *tree)
 				return (pow(evaluate(tree->left), evaluate(tree->right)));
 			default:
 				if (!tree->right)
-					return -1 * evaluate(tree->left);
-				return evaluate(tree->left) - evaluate(tree->right);
+					return (-1 * evaluate(tree->left));
+				return (evaluate(tree->left) - evaluate(tree->right));
 		}
 	}
 	else // tok->type supposed to be VALUE
