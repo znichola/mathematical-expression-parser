@@ -139,5 +139,6 @@ void	auto_print_tree(t_tree *tree)
 	printf("\033[2J\033[1;1H");
 	print_tree((t_pos){width, 2}, tree);
 	printf("\033[%d;0H", height);
+	printf("ans = %g", evaluate(tree));
 	printf("\n");
 }

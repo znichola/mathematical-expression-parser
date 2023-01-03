@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <ctype.h>
 # include <string.h>
+# include <math.h>
 
 # define COMPUTE 0
 # define PRINT_TREE 1
@@ -29,7 +30,7 @@ typedef double t_value;
 typedef union u_token_value
 {
 	char		c;
-	t_value		v;	
+	t_value		v;
 } t_token_value;
 
 typedef struct s_token
@@ -46,7 +47,7 @@ typedef struct s_tree
 } t_tree;
 
 
-// args 
+// args
 int		parse_args(int argc, char **argv, char **expr, int *action);
 
 // cleanup

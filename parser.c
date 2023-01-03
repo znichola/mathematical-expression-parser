@@ -68,7 +68,7 @@ int	parse_term(char **str, t_tree **left_tree)
 		tok = scan_token(*str);
 		if (!tok)
 			return (0);
-		if (!(tok->type == operation && (tok->value.c == '*' || tok->value.c == '/')))
+		if (!(tok->type == operation && (tok->value.c == '*' || tok->value.c == '/' || tok->value.c == '^')))
 		{
 			free(tok);
 			return (0);
