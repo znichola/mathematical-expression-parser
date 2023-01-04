@@ -36,7 +36,7 @@ The following grammars are written in EBNF form. An article abut how to express 
 An example of a grammar for a very simple language is:
 ```
 word	: 'a' | x ;
-x		: 'a' x | 'a' ;
+x	: 'a' x | 'a' ;
 ```
 This grammar describes the language consisting of all words in the form: `a`, `aa`, `aaa`, `aaaa`...
 Note that this language is infinite.
