@@ -77,7 +77,7 @@ t_token *lexer(char **str)
 			else
 			{
 				// Check for invalid tokens :)
-				if (**str != '+' && **str != '-' && **str != '*' && **str != '/' && **str != '^')
+				if (**str != '+' && **str != '-' && **str != '*' && **str != '/')
 				{
 					tok->type = invalid;
 					return (tok);
