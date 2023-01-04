@@ -35,15 +35,15 @@ The following grammars are written in EBNF form. An article abut how to express 
 
 An example of a grammar for a very simple language is:
 ```
-word : 'a' | x ;
-x : 'a' x | 'a' ;
+word	: 'a' | x ;
+x		: 'a' x | 'a' ;
 ```
 This grammar describes the language consisting of all words in the form: `a`, `aa`, `aaa`, `aaaa`...
 Note that this language is infinite.
 
 An example of finite language could be:
 ```
-word: 'hello' | 'world' ;
+word	: 'hello' | 'world' ;
 ```
 This language only contains the words 'hello' and 'world'.
 
@@ -51,11 +51,11 @@ This language only contains the words 'hello' and 'world'.
 
 A grammar that describes the set of valid mathematical expressions can be expressed like this:
 ```
-expr : term {('+' | '-') term} ;
+expr	: term {('+' | '-') term} ;
 
-term : factor {('*' | '/') factor} ;
+term	: factor {('*' | '/') factor} ;
 
-factor : FLOAT | '(' expr ')' | '-' factor ;
+factor	: FLOAT | '(' expr ')' | '-' factor ;
 ```
 
 This grammar gives us three nice rules which we can translate into three functions.
