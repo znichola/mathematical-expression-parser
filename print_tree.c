@@ -59,11 +59,14 @@ static const char	*dict_sign(t_token *tok)
 static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
-	printf("\033[1D");
+	int	spacer;
+
+	spacer = 3;
 	if (tok->type == value)
 	{
-		// printf(":%.1g", tok->value.v);
-		printf("%2.3g", tok->value.v);
+		spacer = snprintf(NULL, 0, "%.2g", tok->value.v);
+		printf("\033[%dD%.2g", spacer / 2, spacer, tok->value.v);
+		// printf("\033[100Dspcr:%d", snprintf(NULL, 0, "%.2g", tok->value.v));
 		return ;
 	}
 	if (tok->type == operation)
@@ -76,6 +79,7 @@ static void	print_token(t_token *tok)
 
 static void print_connector(t_pos p, char dir, int depth)
 {
+	depth--;
 	if (dir == 'l')
 	{
 		while (depth--)
@@ -98,12 +102,13 @@ void	print_tree(t_pos p, t_tree *tree)
 {
 	t_token *tok;
 	int		size;
+	// t_pos	t;
 
 	tok = tree->tok;
 	size = 3;
 	if (tok->type == operation)
 	{
-		printf("\033[%d;%dH", p.y, p.x + 1);
+		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
 
 		size = get_tree_max_width(tree);
@@ -142,3 +147,6 @@ void	auto_print_tree(t_tree *tree)
 	printf("ans = %g", evaluate(tree));
 	printf("\n");
 }
+
+// C99 compliant snprintf will accept NULL as buffer. and return the number of characters that would have been written.
+// size_t len = snprintf(NULL,0,""Our data are : %d, %c, %x, %p", myint, mychar, myhex, mypointer);
