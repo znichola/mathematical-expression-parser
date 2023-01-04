@@ -27,8 +27,10 @@ int	parse_expression(char **str, t_tree **left_tree)
 	t_tree	*right_tree;
 
 	right_tree = 0;
-	if (parse_term(str, left_tree) == -1)
+	if (parse_term(str, left_tree) == -1) //here is the evil leak, in left_tree
+	{
 		return (-1);
+	}
 	while (1)
 	{
 		tok = scan_token(*str);
@@ -59,7 +61,7 @@ int	parse_term(char **str, t_tree **left_tree)
 	t_tree	*right_tree;
 
 	right_tree = 0;
-	if (parse_factor(str, left_tree) == -1)
+	if (parse_factor(str, left_tree) == -1) //here is the evil leak, in left_tree
 	{
 		return (-1);
 	}
@@ -68,7 +70,7 @@ int	parse_term(char **str, t_tree **left_tree)
 		tok = scan_token(*str);
 		if (!tok)
 			return (0);
-		if (!(tok->type == operation && (tok->value.c == '*' || tok->value.c == '/' || tok->value.c == '^')))
+		if (!(tok->type == operation && (tok->value.c == '*' || tok->value.c == '/')))
 		{
 			free(tok);
 			return (0);
