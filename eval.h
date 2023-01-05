@@ -9,6 +9,7 @@
 
 # define COMPUTE 0
 # define PRINT_TREE 1
+# define SYMBOLS "-+*/^()"
 
 typedef struct s_pos
 {
@@ -20,9 +21,12 @@ typedef enum e_token_type
 {
 	open,
 	close,
-	operation,
+	operation, // only using the below, leaving for compatibility wile working
 	value,
-	invalid
+	symbol,
+	identifier, // not used now for the future when we might have pow, etc
+	invalid,
+	end
 } t_token_type;
 
 typedef double t_value;
@@ -60,6 +64,10 @@ t_value	evaluate(t_tree *tree);
 t_token	*scan_token(char *str);
 void	next_token(char **str);
 t_token	*lexer(char **str);
+
+//lexer.c
+t_tree	*tokenizer(char *str);
+t_token	*lexer2(char **str);
 
 //parse_float.c
 t_value parse_float(char **str);

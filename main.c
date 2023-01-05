@@ -14,6 +14,11 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	tree = 0;
+
+	t_token	*list =
+
+	return (0);
+
 	if ((status = parse_expression(&expr, &tree)) != -1)
 	// if ((status = parse_expression(&argv[1], &tree)) != -1)
 	{
