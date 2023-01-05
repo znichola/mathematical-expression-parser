@@ -30,8 +30,8 @@ t_token *lexer(char **str)
 		tok = malloc(sizeof(t_token));
 		if (!tok)
 		{
-			printf("Panic: failed to allocate memory\n");
-			exit(EXIT_FAILURE); //TODO maybe handle it more elegantly
+			perror(0);
+			return (0);
 		}
 		if (isdigit(**str))
 		{
