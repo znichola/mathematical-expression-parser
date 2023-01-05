@@ -14,3 +14,13 @@ void	cleanup_tree(t_tree *tree)
 	}
 	free(tree->tok);
 }
+
+void	cleanup_list(t_tree *list)
+{
+	if (!list)
+		return ;
+	if (list->right)
+		cleanup_list(list->right);
+	free(list->tok);
+	free(list);
+}

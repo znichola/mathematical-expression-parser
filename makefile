@@ -15,6 +15,7 @@ endif
 SRCS = main.c \
 evaluate.c \
 lexer.c \
+lexer2.c \
 parse_float.c \
 parser.c \
 print.c \

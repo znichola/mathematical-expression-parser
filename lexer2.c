@@ -9,22 +9,32 @@ t_tree	*tokenizer(char *str)
 {
 	t_tree	*start;
 	t_tree	*current;
+	t_tree	*previous;
+	t_token	*tok;
 
 	start = NULL;
 	while (1)
 	{
-		current = lexer2(&str);
+		// printf("added this toke: %c\n", *str);
+		tok = lexer2(&str);
+		if (tok == NULL)
+			return (NULL);
+		current = factory(tok);
 		if (current == NULL)
 			return (NULL);
+		// end setup
 		if (start == NULL)
 		{
 			start = current;
+			previous = NULL;
 		}
+		print_token2(tok);
 		if (current->tok->type == end)
-		{
-			current->right = NULL;
 			return (start);
-		}
+		current->left = previous;
+		if (previous != NULL)
+			previous->right = current;
+		// str++;
 	}
 }
 
@@ -32,23 +42,26 @@ t_token	*lexer2(char **str)
 {
 	t_token *tok;
 
+	printf("tokenizing <%s>\n", *str);
 	while (isspace(**str))
 		(*str)++;
 	tok = (t_token *)malloc(sizeof(t_token));
 	if (!tok)
 	{
 		perror(0);
-		return (0);
+		return (NULL);
 	}
 	if (**str == '\0')
 		tok->type = end;
-	else if (strchr(**str, SYMBOLS))
+	else if (strchr(SYMBOLS, **str))
 	{
 		tok->type = symbol;
 		tok->value.c = **str;
+		(*str)++;
 	}
-	else if (isalpha(**str))
+	else if (isdigit(**str))
 	{
+		printf("found a float\n");
 		tok->type = value;
 		tok->value.v = parse_float(str);
 	}
@@ -58,7 +71,7 @@ t_token	*lexer2(char **str)
 		// or single letter constants like e or G
 		// or record the string to be used as a variable name
 		// for now it's just invalid
+		// whatever this does, it would need to advance str
 		tok->type = invalid;
-	(*str)++;
 	return (tok);
 }

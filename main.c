@@ -15,8 +15,10 @@ int main(int argc, char **argv)
 	}
 	tree = 0;
 
-	t_token	*list =
-
+	t_tree	*list = tokenizer(expr);
+	printf("done tokenising I think %p\n", list);
+	cleanup_list(list);
+	// exit(0);
 	return (0);
 
 	if ((status = parse_expression(&expr, &tree)) != -1)

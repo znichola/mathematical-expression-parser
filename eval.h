@@ -31,6 +31,8 @@ typedef enum e_token_type
 
 typedef double t_value;
 
+// TODO: this will need revising to accept a char *
+//        if we want to add pow sqrt etc.
 typedef union u_token_value
 {
 	char		c;
@@ -56,6 +58,7 @@ int		parse_args(int argc, char **argv, char **expr, int *action);
 
 // cleanup
 void	cleanup_tree(t_tree *tree);
+void	cleanup_list(t_tree *list);
 
 //evaluate.c
 t_value	evaluate(t_tree *tree);
@@ -81,6 +84,7 @@ int		parse_factor(char **str, t_tree **tree);
 
 //print.c
 void	print(t_tree *tree);
+void	print_token2(t_token *t);
 
 // print_tree.c
 void	print_tree(t_pos p, t_tree *tree);
