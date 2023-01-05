@@ -45,10 +45,10 @@ void	print_token2(t_token *t)
 			printf("operation:%c", t->value.c);
 			break;
 		case value:
-			printf("value:%g", t->value.v);
+			printf("value %g", t->value.v);
 			break;
 		case symbol:
-			printf("symbol");
+			printf("symbol %c", t->value.c);
 			break;
 		case identifier:
 			printf("identifier");
@@ -64,4 +64,13 @@ void	print_token2(t_token *t)
 			break;
 	}
 	printf("\n\n");
+}
+
+void	print_token_list(t_tree *t)
+{
+	if (!t)
+		return ;
+	print_token2(t->tok);
+	if (t->right)
+		print_token_list(t->right);
 }

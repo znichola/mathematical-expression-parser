@@ -17,7 +17,8 @@ int main(int argc, char **argv)
 
 	t_tree	*list = tokenizer(expr);
 	printf("done tokenising I think %p\n", list);
-	cleanup_list(list);
+	print_token_list(list);
+	cleanup_token_list(list);
 	// exit(0);
 	return (0);
 

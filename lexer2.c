@@ -9,7 +9,7 @@ t_tree	*tokenizer(char *str)
 {
 	t_tree	*start;
 	t_tree	*current;
-	t_tree	*previous;
+	t_tree	*tmp;
 	t_token	*tok;
 
 	start = NULL;
@@ -19,22 +19,23 @@ t_tree	*tokenizer(char *str)
 		tok = lexer2(&str);
 		if (tok == NULL)
 			return (NULL);
-		current = factory(tok);
-		if (current == NULL)
+		tmp = factory(tok);
+		if (tmp == NULL)
 			return (NULL);
 		// end setup
 		if (start == NULL)
 		{
-			start = current;
-			previous = NULL;
+			start = tmp;
+			current = tmp;
 		}
-		print_token2(tok);
-		if (current->tok->type == end)
+		else
+		{
+			current->right = tmp;
+			tmp->left = current;
+			current = tmp;
+		}
+		if (tok->type == end)
 			return (start);
-		current->left = previous;
-		if (previous != NULL)
-			previous->right = current;
-		// str++;
 	}
 }
 
@@ -42,7 +43,7 @@ t_token	*lexer2(char **str)
 {
 	t_token *tok;
 
-	printf("tokenizing <%s>\n", *str);
+	// printf("tokenizing <%s>\n", *str);
 	while (isspace(**str))
 		(*str)++;
 	tok = (t_token *)malloc(sizeof(t_token));
@@ -61,7 +62,6 @@ t_token	*lexer2(char **str)
 	}
 	else if (isdigit(**str))
 	{
-		printf("found a float\n");
 		tok->type = value;
 		tok->value.v = parse_float(str);
 	}

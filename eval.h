@@ -58,7 +58,7 @@ int		parse_args(int argc, char **argv, char **expr, int *action);
 
 // cleanup
 void	cleanup_tree(t_tree *tree);
-void	cleanup_list(t_tree *list);
+void	cleanup_token_list(t_tree *list);
 
 //evaluate.c
 t_value	evaluate(t_tree *tree);
@@ -85,6 +85,7 @@ int		parse_factor(char **str, t_tree **tree);
 //print.c
 void	print(t_tree *tree);
 void	print_token2(t_token *t);
+void	print_token_list(t_tree *t);
 
 // print_tree.c
 void	print_tree(t_pos p, t_tree *tree);
