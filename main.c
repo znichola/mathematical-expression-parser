@@ -15,7 +15,6 @@ int main(int argc, char **argv)
 	}
 	tree = 0;
 	if ((status = parse_expression(&expr, &tree)) != -1)
-	// if ((status = parse_expression(&argv[1], &tree)) != -1)
 	{
 		tok = scan_token(expr);
 		if (tree == NULL || tok)

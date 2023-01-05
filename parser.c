@@ -21,6 +21,7 @@ t_tree	*create_node(t_token *new_token, t_tree *left, t_tree *right)
 	return	(new_node);
 }
 
+// expr	: term {('+' | '-') term} ;
 int	parse_expression(char **str, t_tree **left_tree)
 {
 	t_token *tok;
@@ -34,8 +35,9 @@ int	parse_expression(char **str, t_tree **left_tree)
 	while (1)
 	{
 		tok = scan_token(*str);
+		print_token2(tok);
 		if (!tok)
-			return 0;
+			return (0);
 		if (!(tok->type == operation && (tok->value.c == '+' || tok->value.c == '-')))
 		{
 			free(tok);
@@ -55,6 +57,7 @@ int	parse_expression(char **str, t_tree **left_tree)
 	}
 }
 
+// term	: factor {('*' | '/') factor} ;
 int	parse_term(char **str, t_tree **left_tree)
 {
 	t_token	*tok;
@@ -89,6 +92,8 @@ int	parse_term(char **str, t_tree **left_tree)
 	}
 }
 
+// factor	: FLOAT | '(' expr ')' | '-' factor ;
+// factor	: '-' -> item '^' factor
 int parse_factor(char **str, t_tree **tree)
 {
 	t_token *tok;
@@ -97,7 +102,7 @@ int parse_factor(char **str, t_tree **tree)
 	if (!tok) // check if scan_token returned a valid token
 	{
 		printf("Parse error: unexpected end of input\n");
-		return -1;
+		return (-1);
 	}
 	next_token(str);
 	if (tok->type == open)
@@ -141,4 +146,18 @@ int parse_factor(char **str, t_tree **tree)
 		return (-1);
 	}
 	return 0;
+}
+
+// item		: : FLOAT | '(' expr ')' | identifier ;
+int parse_item(char **str, t_tree **tree)
+{
+	t_token *tok;
+
+	tok = scan_token(*str);
+	if (!tok) // check if scan_token returned a valid token
+	{
+		printf("Parse error: unexpected end of input\n");
+		return (-1);
+	}
+	next_token(str);
 }

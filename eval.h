@@ -73,6 +73,7 @@ int		parse_factor(char **str, t_tree **tree);
 
 //print.c
 void	print(t_tree *tree);
+void	print_token2(t_token *t);
 
 // print_tree.c
 void	print_tree(t_pos p, t_tree *tree);
