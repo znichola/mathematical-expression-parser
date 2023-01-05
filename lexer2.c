@@ -72,6 +72,9 @@ t_token	*lexer2(char **str)
 		// or record the string to be used as a variable name
 		// for now it's just invalid
 		// whatever this does, it would need to advance str
+	{
 		tok->type = invalid;
+		(*str)++;
+	}
 	return (tok);
 }
