@@ -1,30 +1,5 @@
 #include "eval.h"
 
-t_value f_plus(t_value x, t_value y)
-{
-	return (x + y);
-}
-
-t_value f_minus(t_value x, t_value y)
-{
-	return (x - y);
-}
-
-t_value f_multiply(t_value x, t_value y)
-{
-	return (x * y);
-}
-
-t_value f_divide(t_value x, t_value y)
-{
-	return (x / y);
-}
-t_value f_negate(t_value x, t_value y)
-{
-	(void)y;
-	return (-x);
-}
-
 t_token *scan_token(char *str)
 {
 	return (lexer(&str));
