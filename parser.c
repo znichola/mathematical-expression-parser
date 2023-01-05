@@ -5,6 +5,11 @@ t_tree	*factory(t_token *t)
 	t_tree	*new_node;
 
 	new_node = malloc(sizeof(t_tree));
+	if (!new_node)
+	{
+		perror(0);
+		return (0);
+	}
 	new_node->tok = t;
 	new_node->left = 0;
 	new_node->right = 0;
@@ -16,6 +21,8 @@ t_tree	*create_node(t_token *new_token, t_tree *left, t_tree *right)
 	t_tree	*new_node;
 
 	new_node = factory(new_token);
+	if (!new_node)
+		return (0);
 	new_node->left = left;
 	new_node->right = right;
 	return	(new_node);
@@ -25,6 +32,7 @@ int	parse_expression(char **str, t_tree **left_tree)
 {
 	t_token *tok;
 	t_tree	*right_tree;
+	t_tree	*tmp;
 
 	right_tree = 0;
 	if (parse_term(str, left_tree) == -1) //here is the evil leak, in left_tree
@@ -50,7 +58,15 @@ int	parse_expression(char **str, t_tree **left_tree)
 				cleanup_tree(right_tree);
 				return (-1);
 			}
-			*left_tree = create_node(tok, *left_tree, right_tree);
+			tmp = create_node(tok, *left_tree, right_tree);
+			if (!tmp)
+			{
+				cleanup_tree(*left_tree);
+				cleanup_tree(right_tree);
+				free(tok);
+				return (-1);
+			}
+			*left_tree = tmp;
 		}
 	}
 }
@@ -59,6 +75,7 @@ int	parse_term(char **str, t_tree **left_tree)
 {
 	t_token	*tok;
 	t_tree	*right_tree;
+	t_tree	*tmp;
 
 	right_tree = 0;
 	if (parse_factor(str, left_tree) == -1) //here is the evil leak, in left_tree
@@ -84,7 +101,14 @@ int	parse_term(char **str, t_tree **left_tree)
 				cleanup_tree(right_tree);
 				return (-1);
 			}
-			*left_tree = create_node(tok, *left_tree, right_tree);
+			tmp = create_node(tok, *left_tree, right_tree);
+			if (!tmp)
+			{
+				cleanup_tree(*left_tree);
+				cleanup_tree(right_tree);
+				free(tok);
+			}
+			*left_tree = tmp;
 		}
 	}
 }
@@ -92,6 +116,7 @@ int	parse_term(char **str, t_tree **left_tree)
 int parse_factor(char **str, t_tree **tree)
 {
 	t_token *tok;
+	t_tree	*tmp;
 
 	tok = scan_token(*str);
 	if (!tok) // check if scan_token returned a valid token
@@ -128,11 +153,22 @@ int parse_factor(char **str, t_tree **tree)
 			free(tok);
 			return (-1);
 		}
-		*tree = create_node(tok, *tree, 0);
+		tmp = create_node(tok, *tree, 0);
+		if (!tmp)
+		{
+			cleanup_tree(*tree);
+			free(tok);
+			return (-1);
+		}
 	}
 	else if (tok->type == value)
 	{
 		*tree = factory(tok);
+		if (!*tree)
+		{
+			free(tok);
+			return (-1);
+		}
 	}
 	else
 	{
