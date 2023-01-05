@@ -23,14 +23,19 @@ tree_ops.c \
 args.c \
 cleanup.c
 
+OBJS = $(SRCS:%.c=%.o)
+
 NAME = eval
 
 all: $(NAME)
 
-$(NAME): $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS) -o $@
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -lm -o $@
 
-fclean:
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
 	rm -f $(NAME)
 
 re: fclean all

@@ -39,7 +39,7 @@ int	parse_expression(char **str, t_tree **left_tree)
 		if (!(tok->type == operation && (tok->value.c == '+' || tok->value.c == '-')))
 		{
 			free(tok);
-			return 0;
+			return (0);
 		}
 		else
 		{
@@ -118,7 +118,7 @@ int parse_factor(char **str, t_tree **tree)
 		{
 			printf("Parse error: expecting closing parenthesis\n");
 			free(tok);
-			return -1;
+			return (-1);
 		}
 	}
 	else if (tok->type == operation && tok->value.c == '-')
@@ -126,7 +126,7 @@ int parse_factor(char **str, t_tree **tree)
 		if (parse_factor(str, tree) == -1)
 		{
 			free(tok);
-			return -1;
+			return (-1);
 		}
 		*tree = create_node(tok, *tree, 0);
 	}

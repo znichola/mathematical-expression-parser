@@ -1,65 +1,9 @@
 #include "eval.h"
 
-/*
-static const char	*dict_type(t_token *tok)
-{
-	static const char	*ret[4];
-	int					index;
-
-	index = tok->type;
-	ret[0] = "open";
-	ret[1] = "close";
-	ret[2] = "opperation";
-	ret[3] = "value";
-	return (ret[index]);
-}
-
-static const char	*dict_category(t_token *tok)
-{
-	static const char	*ret[3];
-	int					index;
-
-	index = tok->value.o.category;
-	ret[0] = "additive";
-	ret[1] = "multiplicative";
-	ret[2] = "other";
-	return (ret[index]);
-}
-
-static const char	*dict_name(t_token *tok)
-{
-	static const char	*ret[5];
-	int					index;
-
-	index = tok->value.o.name;
-	ret[0] = "plus";
-	ret[1] = "minus";
-	ret[2] = "multiply";
-	ret[3] = "divide";
-	ret[4] = "negate";
-	return (ret[index]);
-}
-
-static const char	*dict_sign(t_token *tok)
-{
-	static const char	*ret[5];
-	int					index;
-
-	index = tok->value.o.name;
-	ret[0] = "+";
-	ret[1] = "-";
-	ret[2] = "*";
-	ret[3] = "/";
-	ret[4] = "-";
-	return (ret[index]);
-}
-
-*/
-
 static void	print_token(t_token *tok)
 {
 	// printf("%.5s\n%.5s\n%.5s\n", dict_type(tok), dict_category(tok), dict_name(tok));
-	// printf("\033[1D");
+	printf("\033[1D");
 	if (tok->type == value)
 	{
 		// printf(":%.1g", tok->value.v);
@@ -103,11 +47,11 @@ void	print_tree(t_pos p, t_tree *tree)
 	size = 3;
 	if (tok->type == operation)
 	{
-		printf("\033[%d;%dH", p.y, p.x);
+		printf("\033[%d;%dH", p.y, p.x + 1);
 		print_token(tok);
 
-		printf("\033[%d;0H", p.y);
 		size = get_tree_max_width(tree);
+		// printf("\033[%d;0H", p.y);
 		// printf("s:%d", get_tree_max_width(tree));
 		if (tree->left != NULL)
 		{
@@ -122,7 +66,7 @@ void	print_tree(t_pos p, t_tree *tree)
 	}
 	else if (tok->type == value)
 	{
-		printf("\033[%d;%dH", p.y, p.x - 1);
+		printf("\033[%d;%dH", p.y, p.x);
 		print_token(tok);
 	}
 }
@@ -139,5 +83,6 @@ void	auto_print_tree(t_tree *tree)
 	printf("\033[2J\033[1;1H");
 	print_tree((t_pos){width, 2}, tree);
 	printf("\033[%d;0H", height);
+	printf("ans = %g", evaluate(tree));
 	printf("\n");
 }
